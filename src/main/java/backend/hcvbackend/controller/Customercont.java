@@ -51,7 +51,7 @@ public class Customercont {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/sxlxsnSX?511SSX/{id}")
+    @DeleteMapping("/sxlxsnSX511SSX/{id}")
     void delete(@PathVariable String id){
         Customer custumorToDelete = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
         custumorrepo.delete(custumorToDelete);
