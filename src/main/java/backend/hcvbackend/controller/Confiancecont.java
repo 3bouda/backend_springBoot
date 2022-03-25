@@ -32,12 +32,12 @@ public class Confiancecont {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
+    @PostMapping("/AbcestQ45")
     Confiance creat(@RequestBody Confiance confiance){
         return confiancerepo.save(confiance);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/Zfhhkji/{id}")
     Confiance update(@PathVariable String id,@RequestBody Confiance confiance){
         Confiance memberFromDB = confiancerepo.findById(id).orElseThrow(RuntimeException::new);
         
@@ -47,7 +47,7 @@ public class Confiancecont {
         return confiancerepo.save(memberFromDB);
     } 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
+    @DeleteMapping("/khoSDF5FTdfy/{id}")
     void delete(@PathVariable String id){
         Confiance confianceToDelete = confiancerepo.findById(id).orElseThrow(RuntimeException::new);
         confiancerepo.delete(confianceToDelete);
