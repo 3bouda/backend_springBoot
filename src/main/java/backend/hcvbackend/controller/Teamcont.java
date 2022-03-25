@@ -32,12 +32,12 @@ public class Teamcont {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
+    @PostMapping("/AHDjdkso52Shh")
     Team creat(@RequestBody Team team){
         return teamrepo.save(team);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/jdjdjMCd4SNS/{id}")
     Team update(@PathVariable String id,@RequestBody Team team){
         Team memberFromDB = teamrepo.findById(id).orElseThrow(RuntimeException::new);
         
@@ -51,7 +51,7 @@ public class Teamcont {
     }    
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
+    @DeleteMapping("/HisisnlOSS55sxomS4/{id}")
     void delete(@PathVariable String id){
         Team memberToDelete = teamrepo.findById(id).orElseThrow(RuntimeException::new);
         teamrepo.delete(memberToDelete);

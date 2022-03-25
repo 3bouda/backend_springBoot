@@ -32,12 +32,12 @@ public class Customercont {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
+    @PostMapping("/AHDjdkj451SHS")
     Customer creat(@RequestBody Customer customer){
         return custumorrepo.save(customer);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/SXLSXNXS/{id}")
     Customer update(@PathVariable String id,@RequestBody Customer team){
         Customer custumorFromDB = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
         
@@ -51,7 +51,7 @@ public class Customercont {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
+    @DeleteMapping("/sxlxsnSX?511SSX/{id}")
     void delete(@PathVariable String id){
         Customer custumorToDelete = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
         custumorrepo.delete(custumorToDelete);
