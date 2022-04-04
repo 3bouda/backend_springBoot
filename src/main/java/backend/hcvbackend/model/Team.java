@@ -16,4 +16,6 @@ public class Team {
     private String lastName;
     private String descr;
     private String img;
+    private String twitter;
+    private String linked;
 }

@@ -10,6 +10,7 @@ import lombok.Data;
 public class Customer {
     @Id
     private String id;
+    private String societe;
     private String post;
     private String firstName;
     private String lastName;

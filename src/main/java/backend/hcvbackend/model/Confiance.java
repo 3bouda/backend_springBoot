@@ -12,4 +12,5 @@ public class Confiance {
     private String id;
     private String img;
     private String atr;
+    private String secteur;
 }

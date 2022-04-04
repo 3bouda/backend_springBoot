@@ -43,6 +43,7 @@ public class Confiancecont {
         
         memberFromDB.setAtr(confiance.getAtr());
         memberFromDB.setImg(confiance.getImg());
+        memberFromDB.setImg(confiance.getSecteur());
 
         return confiancerepo.save(memberFromDB);
     } 

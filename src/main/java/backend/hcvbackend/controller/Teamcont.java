@@ -46,6 +46,8 @@ public class Teamcont {
         memberFromDB.setLastName(team.getLastName());
         memberFromDB.setDescr(team.getDescr());
         memberFromDB.setImg(team.getImg());
+        memberFromDB.setImg(team.getTwitter());
+        memberFromDB.setImg(team.getLinked());
 
         return teamrepo.save(memberFromDB);
     }    

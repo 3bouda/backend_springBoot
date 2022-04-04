@@ -42,6 +42,7 @@ public class Customercont {
         Customer custumorFromDB = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
         
         custumorFromDB.setPost(team.getPost());
+        custumorFromDB.setPost(team.getSociete());
         custumorFromDB.setFirstName(team.getFirstName());
         custumorFromDB.setLastName(team.getLastName());
         custumorFromDB.setDescr(team.getDescr());
