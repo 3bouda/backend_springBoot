@@ -16,4 +16,5 @@ public class Customer {
     private String lastName;
     private String descr;
     private String img;
+    private String atr;
 }
