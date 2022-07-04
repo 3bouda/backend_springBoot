@@ -10,7 +10,7 @@ import lombok.Data;
 public class Confiance {
     @Id
     private String id;
-    private String img;
+    private String imgURL;
     private String atr;
     private String secteur;
 }

@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import backend.hcvbackend.model.Customer;
 import backend.hcvbackend.repo.Custumorrepo;
+import backend.hcvbackend.service.ImageService;
 
 @CrossOrigin
 @RestController
@@ -26,34 +29,65 @@ public class Customercont {
     @Autowired
     private Custumorrepo custumorrepo;
 
+    @Autowired
+    private ImageService imageService;
+
+    private String imageUrl;
+
     @GetMapping("")
-    List<Customer> index(){
+    List<Customer> index() {
         return custumorrepo.findAll();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/AHDjdkj451SHS")
-    Customer creat(@RequestBody Customer customer){
+    public Customer creat(
+            @RequestPart(name = "image") MultipartFile[] files,
+            @RequestPart(required = false) String atr,
+            @RequestPart(required = false) String societe,
+            @RequestPart(required = false) String post,
+            @RequestPart(required = false) String firstName,
+            @RequestPart(required = false) String lastName,
+            @RequestPart(required = false) String descr) {
+
+        for (MultipartFile file : files) {
+            try {
+                String fileName = imageService.save(file);
+                this.imageUrl = imageService.getImageUrl(fileName);
+
+            } catch (Exception e) {
+                System.out.println("no");
+            }
+        }
+
+        Customer customer = new Customer();
+        customer.setAtr(atr);
+        customer.setDescr(descr);
+        customer.setFirstName(firstName);
+        customer.setImgURL(imageUrl);
+        customer.setLastName(lastName);
+        customer.setPost(post);
+        customer.setSociete(societe);
         return custumorrepo.save(customer);
     }
 
     @PutMapping("/SXLSXNXS/{id}")
-    Customer update(@PathVariable String id,@RequestBody Customer team){
+    Customer update(@PathVariable String id, @RequestBody Customer customer) {
         Customer custumorFromDB = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
-        
-        custumorFromDB.setPost(team.getPost());
-        custumorFromDB.setPost(team.getSociete());
-        custumorFromDB.setFirstName(team.getFirstName());
-        custumorFromDB.setLastName(team.getLastName());
-        custumorFromDB.setDescr(team.getDescr());
-        custumorFromDB.setImg(team.getImg());
-        custumorFromDB.setImg(team.getAtr());
+
+        custumorFromDB.setPost(customer.getPost());
+        custumorFromDB.setSociete(customer.getSociete());
+        custumorFromDB.setFirstName(customer.getFirstName());
+        custumorFromDB.setLastName(customer.getLastName());
+        custumorFromDB.setDescr(customer.getDescr());
+        custumorFromDB.setImgURL(customer.getImgURL());
+        custumorFromDB.setAtr(customer.getAtr());
         return custumorrepo.save(custumorFromDB);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/sxlxsnSX511SSX/{id}")
-    void delete(@PathVariable String id){
+    void delete(@PathVariable String id) {
         Customer custumorToDelete = custumorrepo.findById(id).orElseThrow(RuntimeException::new);
         custumorrepo.delete(custumorToDelete);
     }

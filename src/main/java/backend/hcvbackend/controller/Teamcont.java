@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import backend.hcvbackend.model.Team;
 import backend.hcvbackend.repo.Teamrepo;
+import backend.hcvbackend.service.ImageService;
 
 @CrossOrigin
 @RestController
@@ -25,6 +28,11 @@ import backend.hcvbackend.repo.Teamrepo;
 public class Teamcont {
     @Autowired
     private Teamrepo teamrepo;
+    
+    @Autowired
+    private ImageService imageService;
+
+    private String imageUrl;
 
     @GetMapping("")
     List<Team> index(){
@@ -33,7 +41,36 @@ public class Teamcont {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/AHDjdkso52Shh")
-    Team creat(@RequestBody Team team){
+    public Team creat(
+        @RequestPart(name = "image") MultipartFile[] files,
+        @RequestPart(required = false) String atr,
+        @RequestPart(required = false) String post,
+        @RequestPart(required = false) String firstName,
+        @RequestPart(required = false) String lastName,
+        @RequestPart(required = false) String descr,
+        @RequestPart(required = false) String twitter,
+        @RequestPart(required = false) String linked
+    ){
+        for (MultipartFile file : files) {
+            try {
+                String fileName = imageService.save(file);
+                this.imageUrl = imageService.getImageUrl(fileName);
+
+            } catch (Exception e) {
+                System.out.println("no");
+            }
+        }
+
+        Team team = new Team();
+        team.setAtr(atr);
+        team.setDescr(descr);
+        team.setFirstName(firstName);
+        team.setImgURL(imageUrl);
+        team.setLastName(lastName);
+        team.setLinked(linked);
+        team.setPost(post);
+        team.setTwitter(twitter);
+        
         return teamrepo.save(team);
     }
 
@@ -45,10 +82,10 @@ public class Teamcont {
         memberFromDB.setFirstName(team.getFirstName());
         memberFromDB.setLastName(team.getLastName());
         memberFromDB.setDescr(team.getDescr());
-        memberFromDB.setImg(team.getImg());
-        memberFromDB.setImg(team.getAtr());
-        memberFromDB.setImg(team.getTwitter());
-        memberFromDB.setImg(team.getLinked());
+        memberFromDB.setImgURL(team.getImgURL());
+        memberFromDB.setAtr(team.getAtr());
+        memberFromDB.setTwitter(team.getTwitter());
+        memberFromDB.setLinked(team.getLinked());
 
         return teamrepo.save(memberFromDB);
     }    
