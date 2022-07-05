@@ -47,7 +47,7 @@ public class Customercont {
         custumorFromDB.setFirstName(customer.getFirstName());
         custumorFromDB.setLastName(customer.getLastName());
         custumorFromDB.setDescr(customer.getDescr());
-        custumorFromDB.setImgURL(customer.getImgURL());
+        custumorFromDB.setImg(customer.getImg());
         custumorFromDB.setAtr(customer.getAtr());
         return custumorrepo.save(custumorFromDB);
     }

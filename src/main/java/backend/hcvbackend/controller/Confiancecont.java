@@ -44,7 +44,7 @@ public class Confiancecont {
         Confiance confianceFromDB = confiancerepo.findById(id).orElseThrow(RuntimeException::new);
 
         confianceFromDB.setAtr(confiance.getAtr());
-        confianceFromDB.setImgURL(confiance.getImgURL());
+        confianceFromDB.setImg(confiance.getImg());
         confianceFromDB.setSecteur(confiance.getSecteur());
 
         return confiancerepo.save(confianceFromDB);
