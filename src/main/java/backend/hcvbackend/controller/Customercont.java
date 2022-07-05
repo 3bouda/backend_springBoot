@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import backend.hcvbackend.model.Customer;
 import backend.hcvbackend.repo.Custumorrepo;
-import backend.hcvbackend.service.ImageService;
 
 @CrossOrigin
 @RestController
@@ -29,10 +26,6 @@ public class Customercont {
     @Autowired
     private Custumorrepo custumorrepo;
 
-    @Autowired
-    private ImageService imageService;
-
-    private String imageUrl;
 
     @GetMapping("")
     List<Customer> index() {
@@ -41,33 +34,7 @@ public class Customercont {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/AHDjdkj451SHS")
-    public Customer creat(
-            @RequestPart(name = "image") MultipartFile[] files,
-            @RequestPart(required = false) String atr,
-            @RequestPart(required = false) String societe,
-            @RequestPart(required = false) String post,
-            @RequestPart(required = false) String firstName,
-            @RequestPart(required = false) String lastName,
-            @RequestPart(required = false) String descr) {
-
-        for (MultipartFile file : files) {
-            try {
-                String fileName = imageService.save(file);
-                this.imageUrl = imageService.getImageUrl(fileName);
-
-            } catch (Exception e) {
-                System.out.println("no");
-            }
-        }
-
-        Customer customer = new Customer();
-        customer.setAtr(atr);
-        customer.setDescr(descr);
-        customer.setFirstName(firstName);
-        customer.setImgURL(imageUrl);
-        customer.setLastName(lastName);
-        customer.setPost(post);
-        customer.setSociete(societe);
+    public Customer creat(@RequestBody Customer customer){
         return custumorrepo.save(customer);
     }
 
